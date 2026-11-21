@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>曼谷 5 天 4 夜｜旅遊行程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFCF6;--bg:#F5EEDC;--ink:#3E3A39;--coral:#9D473A;--yellow:#DEA044;--sky:#416A81;--green:#CDC8B8;--purple:#BF8250;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--paper);z-index:30}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--paper);border-bottom:3px solid var(--ink);display:flex;align-items:center;gap:8px;padding:8px 10px}
+.links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1}
+.links a{flex:none;padding:4px 12px;border:3px solid var(--ink);border-radius:999px;color:var(--ink);text-decoration:none;font-size:14px}
+.links a:nth-child(5n+1){background:var(--coral)}.links a:nth-child(5n+2){background:var(--yellow)}.links a:nth-child(5n+3){background:var(--sky)}.links a:nth-child(5n+4){background:var(--green)}.links a:nth-child(5n){background:var(--purple)}
+.me{flex:none;border:3px solid var(--ink);border-radius:999px;background:var(--paper);font:inherit;font-size:14px;padding:4px 12px;color:var(--ink);cursor:pointer}
+section{padding:28px 16px 0;max-width:560px;margin:0 auto}
+h2{font-size:22px;margin:0 0 14px;display:inline-block;background:var(--yellow);border:3px solid var(--ink);border-radius:999px;padding:0 16px}
+.card{background:var(--paper);border:3px solid var(--ink);border-radius:24px;padding:16px;box-shadow:4px 4px 0 var(--ink);margin-bottom:16px}
+.hero{padding-top:18px}
+.hero .card{padding:0;overflow:hidden}
+.hero svg{display:block;width:100%;height:auto}
+.hero .tx{padding:6px 16px 18px;text-align:center}
+.hero h1{margin:0;font-size:30px}.hero p{margin:2px 0 12px}
+.cd{display:flex;gap:10px;justify-content:center}
+.cd div{width:76px;border:3px solid var(--ink);border-radius:18px;padding:4px 0;background:var(--sky)}
+.cd div:nth-child(2){background:var(--green)}.cd div:nth-child(3){background:var(--yellow)}
+.cd b{display:block;font-size:26px;line-height:1.2}.cd small{font-size:12px}
+.go{font-size:20px;margin:6px 0}
+.chip{display:inline-block;border:3px solid var(--ink);border-radius:999px;padding:0 10px;font-size:13px;background:var(--green)}
+.route{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:10px 0}
+.route .pt{text-align:center}.route .pt b{display:block;font-size:30px;line-height:1.1}
+.route .mid{flex:1;text-align:center;font-size:13px}.route .mid svg{width:70px;height:36px}
+.route .mid i{display:block;border-top:3px dashed var(--ink);margin-top:-6px}
+.fl{display:flex;justify-content:space-between;align-items:center}
+.dash{border-style:dashed;box-shadow:none}
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 4px 14px;scrollbar-width:none}
+.dbtn{flex:none;min-width:66px;border:3px solid var(--ink);border-radius:20px;background:var(--paper);color:var(--ink);font:inherit;padding:4px 8px;cursor:pointer;line-height:1.3}
+.dbtn b{display:block;font-size:17px}.dbtn small{font-size:12px}
+.dbtn.on{color:var(--paper);background:var(--coral);box-shadow:3px 3px 0 var(--ink)}
+.dt{font-size:20px;margin:0 0 12px}
+.tl{list-style:none;margin:0;padding:0}
+.ti{display:grid;grid-template-columns:52px 1fr;gap:0 18px;position:relative;padding-bottom:14px}
+.ti::before{content:"";position:absolute;left:60px;top:0;bottom:0;border-left:3px dashed var(--ink)}
+.ti::after{content:"";position:absolute;left:53px;top:14px;width:16px;height:16px;border-radius:50%;background:var(--coral);border:3px solid var(--ink)}
+.ti:nth-child(3n+2)::after{background:var(--yellow)}.ti:nth-child(3n)::after{background:var(--sky)}
+.ti time{font-size:14px;font-weight:bold;padding-top:10px;text-align:right}
+.ti .c{border:3px solid var(--ink);border-radius:20px;padding:10px 12px;background:var(--paper)}
+.ti.off{opacity:.45}
+.ti .r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.must{color:var(--paper);background:var(--coral);border:3px solid var(--ink);border-radius:999px;padding:0 8px;font-size:12px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tag,.who{border:2px solid var(--ink);border-radius:999px;padding:0 8px;font-size:12px}
+.who{background:var(--paper)}
+.ti p{margin:6px 0 0;font-size:14px}
+.map{display:inline-block;margin-top:8px;border:3px solid var(--ink);border-radius:999px;padding:0 12px;font-size:14px;color:var(--paper);text-decoration:none;background:var(--sky)}
+.pop{animation:pop .55s cubic-bezier(.34,1.56,.64,1)}
+.stay h3{margin:0 0 4px;font-size:18px}
+.stay .cap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.prog{float:right;font-size:14px}
+.ck{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:2px dashed var(--ink);cursor:pointer}
+.ck:last-child{border-bottom:0}
+.ck input{appearance:none;-webkit-appearance:none;flex:none;width:28px;height:28px;margin:0;border:3px solid var(--ink);border-radius:10px;background:var(--paper);display:grid;place-items:center;cursor:pointer}
+.ck input:checked{background:var(--green);animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+.ck input:checked::after{content:"✓";font-size:18px;line-height:1}
+.ck input:checked+span{text-decoration:line-through;opacity:.55}
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center}
+.gate[hidden]{display:none}
+.gate h2{font-size:26px;background:var(--sky);color:var(--paper)}
+.gate svg{width:180px}
+.pick{width:min(280px,100%);font:inherit;font-size:22px;border:3px solid var(--ink);border-radius:28px;padding:10px;color:var(--ink);cursor:pointer;box-shadow:4px 4px 0 var(--ink)}
+.pick:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-bottom,0px));font-size:13px}
+.cloud{animation:drift 7s ease-in-out infinite alternate}.c2{animation-duration:9s;animation-direction:alternate-reverse}
+.sun{animation:bob 3.5s ease-in-out infinite}
+.boat{animation:bob 2.6s ease-in-out infinite}
+.wave{animation:wave 4s linear infinite}
+.tuk{animation:drive 2.4s ease-in-out infinite alternate}
+.plane{animation:fly 3s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateX(16px)}}
+@keyframes bob{50%{transform:translateY(-5px)}}
+@keyframes wave{to{transform:translateX(-60px)}}
+@keyframes drive{to{transform:translateX(10px)}}
+@keyframes fly{to{transform:translate(8px,-4px)}}
+.fl{animation:bob 3.2s ease-in-out infinite}
+.straw{transform-box:fill-box;transform-origin:50% 100%;animation:sway 2.8s ease-in-out infinite alternate}
+.steam{animation:steam 2.8s ease-in-out infinite}
+.spark{transform-box:fill-box;transform-origin:center;animation:twinkle 2.4s ease-in-out infinite}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes steam{0%{transform:translateY(6px);opacity:0}50%{opacity:1}100%{transform:translateY(-8px);opacity:0}}
+@keyframes twinkle{50%{transform:scale(.55) rotate(25deg)}}
+@keyframes pop{0%{transform:scale(.9)}55%{transform:scale(1.05)}100%{transform:scale(1)}}
+.links a:nth-child(5n+1),.links a:nth-child(5n+3){color:var(--paper)}
+.cd div:first-child{color:var(--paper)}
+.chip[style*="--sky"],.chip[style*="--coral"],.tag[style*="#416A81"],.tag[style*="#9D473A"]{color:var(--paper)}
+.mapcard svg{display:block;width:100%;height:auto;margin-bottom:10px}
+.lg{display:inline-flex;gap:6px;align-items:center;margin:0 12px 6px 0;font-size:14px}
+.lg b{width:24px;height:24px;border-radius:50%;border:3px solid var(--ink);display:grid;place-items:center;font-size:12px}
+.leg{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 0;border-top:2px dashed var(--ink)}
+.leg small{display:block;font-size:13px}
+.leg .map{margin:0;flex:none}
+.mnote{margin:8px 0 0;font-size:12px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <svg viewBox="0 0 130 90" aria-hidden="true"><g class="tuk">
+    <rect x="22" y="14" width="64" height="10" rx="5" fill="#9D473A" stroke="#3E3A39" stroke-width="3"/>
+    <path d="M30 24v18M78 24v18" stroke="#3E3A39" stroke-width="3"/>
+    <rect x="12" y="38" width="100" height="28" rx="12" fill="#DEA044" stroke="#3E3A39" stroke-width="3"/>
+    <path d="M86 38l12-10h10" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/>
+    <rect x="30" y="44" width="30" height="12" rx="6" fill="#416A81" stroke="#3E3A39" stroke-width="3"/>
+    <circle cx="34" cy="68" r="11" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/><circle cx="96" cy="68" r="11" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+  </g></svg>
+  <h2>你是誰？</h2>
+  <div id="picks" style="display:flex;flex-direction:column;gap:12px;align-items:center;width:100%"></div>
+</div>
+
+<header class="nav">
+  <nav class="links">
+    <a href="#top">首頁</a><a href="#flight">航班</a><a href="#plan">行程</a><a href="#todo">待辦</a><a href="#stay">住宿</a><a href="#pre">出發前</a><a href="#pack">行李</a>
+  </nav>
+  <button class="me" id="meBtn" type="button">我是 …</button>
+</header>
+
+<section class="hero" id="top">
+  <div class="card">
+    <svg viewBox="0 0 360 220" role="img" aria-label="曼谷鄭王廟、湄南河長尾船與太陽">
+      <defs><g id="pr"><path d="M-15 0C-14-20-7-40-3-50L0-60L3-50C7-40 14-20 15 0z" fill="#DEA044" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M-11-18H11M-7-34H7" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/><circle cy="-6" r="3" fill="#9D473A" stroke="#3E3A39" stroke-width="2.5"/></g></defs>
+      <rect width="360" height="220" fill="#FFFCF6"/>
+      <circle class="sun" cx="300" cy="56" r="24" fill="#DEA044" stroke="#3E3A39" stroke-width="3"/>
+      <g class="cloud"><path d="M24 62a12 12 0 0 1 2-23 16 16 0 0 1 30-3 14 14 0 0 1 18 14 10 10 0 0 1-2 12z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g>
+      <g class="cloud c2"><path d="M220 36a9 9 0 0 1 1-17 12 12 0 0 1 23-2 10 10 0 0 1 13 10 8 8 0 0 1-1 9z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g>
+      <rect x="96" y="152" width="168" height="18" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="110" y="136" width="140" height="16" rx="3" fill="#DEA044" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="124" y="122" width="112" height="14" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+      <use href="#pr" transform="translate(110 152) scale(.8)"/><use href="#pr" transform="translate(250 152) scale(.8)"/>
+      <use href="#pr" transform="translate(136 136)"/><use href="#pr" transform="translate(224 136)"/>
+      <path d="M150 122C152 96 160 70 170 52L174 38L180 22L186 38L190 52C200 70 208 96 210 122z" fill="#9D473A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M180 22V4M172 12L180 4L188 12" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="148" y="103" width="64" height="6" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+      <rect x="156" y="85" width="48" height="6" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+      <rect x="162" y="67" width="36" height="6" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+      <rect x="170" y="49" width="20" height="6" rx="3" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+      <circle cx="164" cy="96" r="3.5" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/><circle cx="180" cy="96" r="3.5" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/><circle cx="196" cy="96" r="3.5" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/><circle cx="172" cy="78" r="3.5" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/><circle cx="188" cy="78" r="3.5" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/><circle cx="180" cy="60" r="3.5" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/><circle cx="162" cy="115" r="3.5" fill="#416A81" stroke="#3E3A39" stroke-width="2.5"/><circle cx="198" cy="115" r="3.5" fill="#416A81" stroke="#3E3A39" stroke-width="2.5"/>
+      <path d="M171 122v-6a9 9 0 0 1 18 0v6z" fill="#DEA044" stroke="#3E3A39" stroke-width="2.5"/>
+      <path d="M164 170L169 122H191L196 170z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M166 158H194M167 146H193M168 134H192" stroke="#3E3A39" stroke-width="2.5"/>
+      <rect x="0" y="170" width="360" height="50" fill="#416A81"/><path d="M0 170h360" stroke="#3E3A39" stroke-width="3"/>
+      <path class="wave" d="M-60 190q15-10 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0" fill="none" stroke="#FFFCF6" stroke-width="3" stroke-linecap="round"/>
+      <g class="boat"><path d="M236 186h74l-10 16h-54z" fill="#CDC8B8" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M252 186v-16h38v16" fill="#BF8250" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g>
+    </svg>
+    <div class="tx">
+      <h1>曼谷 5 天 4 夜</h1>
+      <p>2026.11.26 – 11.30 · Sang · YZT · Na</p>
+      <div class="cd" id="cd"></div>
+      <p style="margin:12px 0 0;font-size:14px" id="hi"></p>
+    </div>
+  </div>
+</section>
+
+<section id="flight">
+  <h2>航班</h2>
+  <div class="days" id="ftabs"></div>
+  <div class="fset" data-g="sy">
+  <div class="card">
+    <div class="fl"><span class="chip" style="background:var(--sky)">去程 · 11/26（四）</span><span class="chip">Sang · YZT</span></div>
+    <div class="route">
+      <div class="pt"><b>TPE</b>09:45<br><small>台北桃園</small></div>
+      <div class="mid"><svg viewBox="0 0 80 40" aria-hidden="true"><g class="plane"><path d="M10 22h50q10 0 10-4t-10-4H30z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M34 22l-8 12h10l10-12zM14 18L8 8h8l8 10z" fill="#9D473A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g></svg><i></i>BR201</div>
+      <div class="pt"><b>BKK</b>12:50<br><small>曼谷素萬那普</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="fl"><span class="chip" style="background:var(--yellow)">回程 · 11/30（一）</span><span class="chip">Sang · YZT</span></div>
+    <div class="route">
+      <div class="pt"><b>BKK</b>14:35<br><small>曼谷素萬那普</small></div>
+      <div class="mid"><svg viewBox="0 0 80 40" aria-hidden="true"><g class="plane"><path d="M70 22H20Q10 22 10 18t10-4h30z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M46 22l8 12H44L34 22zM66 18l6-10h-8l-8 10z" fill="#DEA044" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g></svg><i></i>BR202</div>
+      <div class="pt"><b>TPE</b>19:15<br><small>台北桃園</small></div>
+    </div>
+  </div>
+  </div>
+  <div class="fset" data-g="na" hidden>
+  <div class="card">
+    <div class="fl"><span class="chip" style="background:var(--sky)">去程 · 11/26（四）</span><span class="chip" style="background:var(--coral)">Na</span></div>
+    <div class="route">
+      <div class="pt"><b>TPE</b>16:40<br><small>台北桃園</small></div>
+      <div class="mid"><svg viewBox="0 0 80 40" aria-hidden="true"><g class="plane"><path d="M10 22h50q10 0 10-4t-10-4H30z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M34 22l-8 12h10l10-12zM14 18L8 8h8l8 10z" fill="#9D473A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g></svg><i></i>SL397</div>
+      <div class="pt"><b>DMK</b>19:35<br><small>曼谷廊曼</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="fl"><span class="chip" style="background:var(--yellow)">回程 · 12/2（三）凌晨</span><span class="chip" style="background:var(--coral)">Na</span></div>
+    <div class="route">
+      <div class="pt"><b>CNX</b>01:40<br><small>清邁</small></div>
+      <div class="mid"><svg viewBox="0 0 80 40" aria-hidden="true"><g class="plane"><path d="M70 22H20Q10 22 10 18t10-4h30z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M46 22l8 12H44L34 22zM66 18l6-10h-8l-8 10z" fill="#DEA044" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/></g></svg><i></i>FD242</div>
+      <div class="pt"><b>TPE</b>06:30<br><small>台北桃園</small></div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section id="plan">
+  <h2>每日行程</h2>
+  <div class="days" id="days"></div>
+  <div id="dayBody">
+    <h3 class="dt" id="dayTitle"></h3>
+    <ul class="tl" id="tl"></ul>
+    <h3 class="dt" style="margin-top:20px">相對位置與交通</h3>
+    <div class="card" id="mapCard"></div>
+  </div>
+</section>
+
+<section id="todo"><h2>待辦清單</h2><div class="card" id="L-todo"></div></section>
+
+<section id="stay">
+  <h2>住宿資訊</h2>
+  <div class="card stay"><h3>住宿 A・Circle REIN Sukhumvit 12</h3><div class="cap"><span class="chip" style="background:var(--coral)">11/26 – 11/28</span><span class="chip" style="background:var(--yellow)">2 晚</span></div><a class="map" href="https://maps.app.goo.gl/k1oXnw3XJsiitL986?g_st=ic" target="_blank" rel="noopener">開啟地圖</a></div>
+  <div class="card stay"><h3>住宿 B・曼谷素拉翁塞萬豪酒店</h3><div class="cap"><span class="chip" style="background:var(--coral)">11/28 – 11/30</span><span class="chip" style="background:var(--yellow)">2 晚</span></div><a class="map" href="https://maps.app.goo.gl/i3fAE3yVTM78zgfr8?g_st=ic" target="_blank" rel="noopener">開啟地圖</a></div>
+</section>
+
+<section id="pre"><h2>出發前清單</h2><div class="card" id="L-pre"></div></section>
+<section id="pack"><h2>行李清單</h2><div class="card" id="L-pack"></div></section>
+
+<footer>祝大家旅途愉快 🌴</footer>
+
+<script>
+var P=["Sang","YZT","Na"],PC={Sang:"#9D473A",YZT:"#DEA044",Na:"#416A81"};
+var MAP={A:"https://maps.app.goo.gl/k1oXnw3XJsiitL986?g_st=ic",B:"https://maps.app.goo.gl/i3fAE3yVTM78zgfr8?g_st=ic",C:"https://maps.app.goo.gl/scsGjsEEdsTczaKCA?g_st=ic",BAR:"https://maps.app.goo.gl/PsmFqY5fcxLvNoqu7?g_st=ic",TAT:"https://maps.app.goo.gl/DYfH9bTW2PmvwjSr7?g_st=ic",R1:"https://maps.app.goo.gl/BouzzceNKSBV1zym6?g_st=ic",R2:"https://maps.app.goo.gl/XdMNus3PYFmtY5US8?g_st=ic",R3:"https://maps.app.goo.gl/GCXnSfHdvg71BMRw7?g_st=ic",CK:"https://maps.app.goo.gl/vrjWM2vzmbHYVbXR7?g_st=il"};
+var TC={"飛機":"#416A81","火車":"#BF8250","Grab":"#DEA044","渡輪":"#CDC8B8","步行":"#9D473A"};
+var SY=["Sang","YZT"],NA=["Na"];
+/* [時間, 標題, 交通, 對象, 必去, 備註, 地圖] */
+var D=[
+{d:"11/26",w:"四",t:"出發・抵達曼谷",i:[
+ ["09:45","BR201 台北起飛",["飛機"],SY,0,"12:50 抵達曼谷素萬那普機場。"],
+ ["14:00","前往住宿 A 放行李",["Grab"],SY,0,"入境、領行李後出發，時間為暫定。","A"],
+ ["16:40","SL397 台北起飛",["飛機"],NA,0,"19:35 抵達曼谷廊曼機場（DMK）。"],
+ ["19:35","Na 抵達廊曼機場",["飛機"],NA,0,"入境後再前往酒吧會合。"],
+ ["21:00","Crimson Room 酒吧",["Grab"],"all",1,"已預約。三人會合，第一晚乾杯！","BAR"]]},
+{d:"11/27",w:"五",t:"刺青・煙火秀",i:[
+ ["白天","自由活動",[],SY,0,"還沒排，可以補上想去的地方。"],
+ ["13:30","Filo Tattoo 刺青（至 17:30）",["Grab"],NA,1,"預計 4 小時。","TAT"],
+ ["願望","鄭王廟附近吃椰子餅",[],"all",0,"三人一起的願望清單，時間還沒定，可以在煙火秀前順路吃。","CK"],
+ ["19:50","煙火秀＋無人機秀",["渡輪","Grab","步行"],"all",1,"鄭王廟對面、Song Wat Road 一帶，建議提早卡位。"]]},
+{d:"11/28",w:"六",t:"廚藝教室・換住宿・Na 前往清邁",i:[
+ ["一早","Circle REIN Sukhumvit 12 退房",[],"all",0,"一早就退房，帶著行李出發。","A"],
+ ["退房後","移動到曼谷素拉翁塞萬豪酒店寄放行李",["Grab"],"all",0,"先到住宿 B 掛行李，再前往廚藝教室。","B"],
+ ["08:50","Sompong Thai Cooking School 泰式廚藝教室（至 12:30）",["Grab"],"all",1,"已預約。08:50 前要到，從萬豪出發，記得預留交通時間。","C"],
+ ["課後","回住宿 B 入住（視房況）",[],SY,0,"","B"],
+ ["課後","跑步用品店 ① Runtitude",[],NA,0,"Yupster 主打服飾與帽子，Motive 主打襪子。","R1"],
+ ["接著","跑步用品店 ② Carnival",[],NA,0,"潮流風格，可以逛旗艦店。","R2"],
+ ["接著","跑步用品店 ③ ORYM & BROOO",[],NA,0,"Central World 一次逛兩間。BROOO 主打 urban running，ORYM 主打戶外越野、圖騰風格。","R3"],
+ ["18:40","火車前往清邁",["火車"],NA,0,"Krung Thep Aphiwat Central Terminal Station → Chiang Mai。之後 Na 開始自己的行程。"]]},
+{d:"11/29",w:"日",t:"自由日",i:[
+ ["全天","自由活動",[],SY,0,"尚未安排，想去哪裡可以先寫在待辦清單。"]]},
+{d:"11/30",w:"一",t:"返程",i:[
+ ["上午","住宿 B 退房",["Grab"],SY,0,"",""],
+ ["11:30","抵達機場報到",["Grab"],SY,0,"建議至少提前 3 小時抵達。"],
+ ["14:35","BR202 曼谷起飛",["飛機"],SY,0,"19:15 抵達台北桃園。"]]}
+];
+var LS={
+todo:["查煙火秀／無人機秀的觀賞位置","決定 11/29 自由日要去哪"],
+pre:["護照效期（建議 6 個月以上）","填寫泰國數位入境卡 TDAC","網路報到、選位（BR201）","準備泰銖現金與信用卡","買 eSIM 或開通漫遊","截圖住宿訂單與航班資訊","下載 Grab、Google 地圖離線地圖","旅遊保險"],
+pack:["護照","手機＋充電線","行動電源（隨身帶，不能託運）","輕薄透氣衣物","寺廟參觀用衣物（遮肩與膝蓋）","好走的鞋＋拖鞋","防曬、墨鏡、帽子","防蚊液","小雨傘或輕便雨衣","薄外套（室內冷氣強）","個人藥品、衛生用品","環保袋"]};
+var me=null,day=0,PT={Sang:"#FFFCF6",YZT:"#3E3A39",Na:"#FFFCF6"};
+function g(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function s(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function $(q){return document.querySelector(q)}
+function pop(el){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}
+
+function cd(){
+ var t=new Date("2026-11-26T09:45:00+08:00")-Date.now(),el=$("#cd");
+ if(t<=0){el.innerHTML='<p class="go">旅途進行中，玩得開心！</p>';return}
+ var d=Math.floor(t/864e5),h=Math.floor(t/36e5)%24,m=Math.floor(t/6e4)%60;
+ el.innerHTML='<div><b>'+d+'</b><small>天</small></div><div><b>'+h+'</b><small>小時</small></div><div><b>'+m+'</b><small>分鐘</small></div>';
+}
+function days(){
+ $("#days").innerHTML=D.map(function(x,n){return '<button type="button" class="dbtn'+(n===day?' on':'')+'" data-n="'+n+'"><b>'+x.d+'</b><small>週'+x.w+'</small></button>'}).join("");
+}
+function plan(){
+ var d=D[day];setTimeout(drawMap,0);
+ $("#dayTitle").textContent=d.d+"（週"+d.w+"）"+d.t;
+ $("#tl").innerHTML=d.i.map(function(x){
+  var mine=x[3]==="all"||x[3].indexOf(me)>-1;
+  var who=x[3]==="all"?"":'<span class="who">'+x[3].join(" · ")+'</span>';
+  var tags=x[2].map(function(t){return '<span class="tag" style="background:'+TC[t]+'">'+t+'</span>'}).join("");
+  return '<li class="ti'+(mine?'':' off')+'"><time>'+x[0]+'</time><div class="c"><div class="r"><b>'+x[1]+'</b>'+(x[4]?'<span class="must">必去</span>':'')+'</div>'+(tags||who?'<div class="tags">'+tags+who+'</div>':'')+(x[5]?'<p>'+x[5]+'</p>':'')+(x[6]?'<a class="map" href="'+MAP[x[6]]+'" target="_blank" rel="noopener">開啟地圖</a>':'')+'</div></li>';
+ }).join("");
+}
+function lists(){
+ Object.keys(LS).forEach(function(id){
+  var box=$("#L-"+id),n=0;
+  box.innerHTML='<span class="prog"></span>'+LS[id].map(function(t,i){
+   var on=g("ck_"+me+"_"+id+"_"+i)==="1";if(on)n++;
+   return '<label class="ck"><input type="checkbox" data-k="ck_'+me+'_'+id+'_'+i+'"'+(on?' checked':'')+'><span>'+t+'</span></label>';
+  }).join("");
+  prog(box);
+ });
+}
+function prog(box){
+ var all=box.querySelectorAll("input"),c=box.querySelectorAll("input:checked").length;
+ box.querySelector(".prog").textContent=c+" / "+all.length;
+}
+function enter(p){
+ me=p;s("who",p);$("#gate").hidden=true;
+ $("#meBtn").textContent="我是 "+p;$("#meBtn").style.background=PC[p];$("#meBtn").style.color=PT[p];
+ $("#hi").textContent="嗨，"+p+"！下面的行程會幫你標出屬於你的部分。";
+ fsel=p;flights();days();plan();lists();window.scrollTo(0,0);
+}
+$("#picks").innerHTML=P.map(function(p){return '<button type="button" class="pick" data-p="'+p+'" style="background:'+PC[p]+';color:'+PT[p]+'">'+p+'</button>'}).join("");
+$("#picks").addEventListener("click",function(e){var b=e.target.closest(".pick");if(b)enter(b.dataset.p)});
+$("#meBtn").addEventListener("click",function(){$("#gate").hidden=false});
+$("#days").addEventListener("click",function(e){
+ var b=e.target.closest(".dbtn");if(!b)return;
+ day=+b.dataset.n;days();plan();
+ pop($("#dayBody"));pop($("#days").children[day]);
+});
+var PL={bkk:["素萬那普機場",13.69,100.7501,"Suvarnabhumi Airport"],dmk:["廊曼機場",13.9126,100.6067,"Don Mueang International Airport"],A:["住宿 A",13.739,100.56,"Circle REIN Sukhumvit 12"],B:["住宿 B 萬豪",13.727,100.5285,"Bangkok Marriott Hotel The Surawongse"],S:["廚藝教室",13.7245,100.5305,"Sompong Thai Cooking School"],R1:["Runtitude",13.743,100.531,"Runtitude Thephasadin Stadium Bangkok"],R2:["Carnival",13.745,100.533,"Carnival Siam Square Bangkok"],R3:["Central World",13.7466,100.5393,"CentralWorld Bangkok"],KT:["曼谷中央總站",13.8035,100.5385,"Krung Thep Aphiwat Central Terminal Station"],FW:["煙火秀 Song Wat",13.743,100.501,"Song Wat Road Bangkok"],CR:["Crimson Room",13.7432,100.5435,"Crimson Room Langsuan Bangkok"]};
+var MD=[
+{s:[["bkk",SY],["dmk",NA],["A",SY],["CR","all"]],l:[["bkk","A",SY],["A","CR",SY],["dmk","CR",NA]],u:[]},
+{s:[["A","all"],["FW","all"]],l:[["A","FW","all"]],u:[["Filo Tattoo（Na 刺青）",NA],["鄭王廟附近的椰子餅店","all"]]},
+{s:[["A","all"],["B","all"],["S","all"],["R1",NA],["R2",NA],["R3",NA],["KT",NA]],l:[["A","B","all"],["B","S","all"],["S","B",SY],["S","R1",NA],["R1","R2",NA],["R2","R3",NA],["R3","KT",NA]],u:[]},
+{s:[],l:[],u:[]},
+{s:[["B",SY],["bkk",SY]],l:[["B","bkk",SY]],u:[]}];
+var CL=["--coral","--yellow","--sky","--green","--purple"],CT=[1,0,1,0,0];
+function vis(w){return w==="all"||w.indexOf(me)>-1}
+function kmd(a,b){var r=Math.PI/180,x=Math.sin((b[1]-a[1])*r/2),y=Math.sin((b[2]-a[2])*r/2);return 12742*Math.asin(Math.sqrt(x*x+Math.cos(a[1]*r)*Math.cos(b[1]*r)*y*y))}
+function est(k){var r=k*1.3;if(r<1)return "步行約 "+Math.max(3,Math.round(r/4.5*60))+" 分";var b=5+(r<=8?r*3.2:25.6+(r-8)*1.6);return "車程約 "+Math.round(b*.8)+"–"+Math.round(b*1.4)+" 分"}
+function drawMap(){
+ var box=$("#mapCard"),m=MD[day];
+ var st=m.s.filter(function(x){return vis(x[1])}).map(function(x){return x[0]});
+ var lg=m.l.filter(function(x){return vis(x[2])&&st.indexOf(x[0])>-1&&st.indexOf(x[1])>-1});
+ var un=m.u.filter(function(x){return vis(x[1])}).map(function(x){return x[0]});
+ if(!st.length&&!un.length){box.innerHTML="<p style='margin:0'>這天沒有需要移動的行程。</p>";return}
+ var W=340,H=220,pd=30,pos={},html="";
+ if(st.length){
+  var la=st.map(function(i){return PL[i][1]}),lo=st.map(function(i){return PL[i][2]});
+  var mnA=Math.min.apply(0,la),mxA=Math.max.apply(0,la),mnO=Math.min.apply(0,lo),mxO=Math.max.apply(0,lo);
+  var k=Math.cos((mnA+mxA)/2*Math.PI/180),sx=(mxO-mnO)*k,sy=mxA-mnA;
+  var sc=Math.min((W-2*pd)/(sx||1),(H-2*pd)/(sy||1)),ox=(W-sx*sc)/2,oy=(H-sy*sc)/2;
+  st.forEach(function(i){pos[i]=[ox+(PL[i][2]-mnO)*k*sc,oy+(mxA-PL[i][1])*sc]});
+  for(var t=0;t<60;t++)st.forEach(function(a){st.forEach(function(b){if(a===b)return;var dx=pos[a][0]-pos[b][0],dy=pos[a][1]-pos[b][1],d=Math.sqrt(dx*dx+dy*dy)||.01;if(d<34){var f=(34-d)/2/d;pos[a][0]+=dx*f;pos[a][1]+=dy*f;pos[b][0]-=dx*f;pos[b][1]-=dy*f}})});
+  st.forEach(function(i){pos[i][0]=Math.max(16,Math.min(W-16,pos[i][0]));pos[i][1]=Math.max(16,Math.min(H-16,pos[i][1]))});
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="當天地點的相對位置示意圖"><rect x="2" y="2" width="'+(W-4)+'" height="'+(H-4)+'" rx="18" style="fill:var(--bg)" stroke="#3E3A39" stroke-width="3"/>';
+  lg.forEach(function(x){svg+='<path d="M'+pos[x[0]][0]+' '+pos[x[0]][1]+'L'+pos[x[1]][0]+' '+pos[x[1]][1]+'" fill="none" stroke="#3E3A39" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>'});
+  st.forEach(function(i,n){var c=n%5;svg+='<circle cx="'+pos[i][0]+'" cy="'+pos[i][1]+'" r="13" style="fill:var('+CL[c]+')" stroke="#3E3A39" stroke-width="3"/><text x="'+pos[i][0]+'" y="'+(pos[i][1]+4.5)+'" text-anchor="middle" font-size="13" font-weight="bold" fill="'+(CT[c]?'#FFFCF6':'#3E3A39')+'">'+(n+1)+'</text>'});
+  svg+='</svg>';
+  html='<div class="mapcard">'+svg+'</div>';
+  html+=st.map(function(i,n){var c=n%5;return '<span class="lg"><b style="background:var('+CL[c]+');color:'+(CT[c]?'#FFFCF6':'#3E3A39')+'">'+(n+1)+'</b>'+PL[i][0]+'</span>'}).join("");
+  html+=lg.map(function(x){var a=PL[x[0]],b=PL[x[1]],d=kmd(a,b);
+   return '<div class="leg"><div><b>'+a[0]+' → '+b[0]+'</b><small>直線約 '+d.toFixed(1)+' km・'+est(d)+'</small></div><a class="map" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(a[3])+'&destination='+encodeURIComponent(b[3])+'" target="_blank" rel="noopener">查路線</a></div>'}).join("");
+ }
+ if(un.length)html+='<p class="mnote">位置待補：'+un.join("、")+'</p>';
+ html+='<p class="mnote">地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。</p>';
+ box.innerHTML=html;
+}
+var fsel=null;
+function flights(){
+ $("#ftabs").innerHTML=P.map(function(p){return '<button type="button" class="dbtn'+(p===fsel?' on':'')+'" data-p="'+p+'"'+(p===fsel?' style="background:'+PC[p]+';color:'+PT[p]+'"':'')+'><b>'+p+'</b></button>'}).join("");
+ var grp=fsel==="Na"?"na":"sy";
+ document.querySelectorAll(".fset").forEach(function(e){e.hidden=e.dataset.g!==grp});
+}
+$("#ftabs").addEventListener("click",function(e){
+ var b=e.target.closest(".dbtn");if(!b)return;
+ fsel=b.dataset.p;flights();
+ pop(document.querySelector(".fset:not([hidden])"));pop($("#ftabs").children[P.indexOf(fsel)]);
+});
+document.addEventListener("change",function(e){
+ var i=e.target;if(i.type!=="checkbox")return;
+ s(i.dataset.k,i.checked?"1":"0");prog(i.closest(".card"));
+});
+cd();setInterval(cd,30000);
+var saved=g("who");
+if(saved&&P.indexOf(saved)>-1)enter(saved);
+</script>
+</body>
+</html>
