@@ -104,6 +104,13 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
 .leg small{display:block;font-size:13px}
 .leg .map{margin:0;flex:none}
 .mnote{margin:8px 0 0;font-size:12px}
+.glb{padding:4px 8px;display:grid;place-items:center}
+.glb svg{width:20px;height:20px;display:block}
+.lm{position:absolute;right:10px;top:calc(100% + 6px);background:var(--paper);border:3px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink);padding:6px;display:flex;flex-direction:column;gap:4px;z-index:50}
+.lm[hidden]{display:none}
+.lm button,.glang button{font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:4px 16px;cursor:pointer}
+.lm button.on,.glang button.on{background:var(--yellow)}
+.glang{display:flex;gap:8px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -120,6 +127,7 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
   </g></svg>
   <h2>你是誰？</h2>
   <div id="picks" style="display:flex;flex-direction:column;gap:12px;align-items:center;width:100%"></div>
+  <div class="glang"><button type="button" data-l="zh">繁體中文</button><button type="button" data-l="en">English</button></div>
 </div>
 
 <header class="nav">
@@ -127,6 +135,8 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
     <a href="#top">首頁</a><a href="#flight">航班</a><a href="#plan">行程</a><a href="#todo">待辦</a><a href="#stay">住宿</a><a href="#pre">出發前</a><a href="#pack">行李</a>
   </nav>
   <button class="me" id="meBtn" type="button">我是 …</button>
+  <button class="me glb" id="langBtn" type="button" aria-label="Language / 語言" aria-haspopup="true"><svg viewBox="0 0 24 24" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></button>
+  <div class="lm" id="lm" hidden><button type="button" data-l="zh">繁體中文</button><button type="button" data-l="en">English</button></div>
 </header>
 
 <section class="hero" id="top">
@@ -232,6 +242,24 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
 
 <script>
 var P=["Sang","YZT","Na"],PC={Sang:"#9D473A",YZT:"#DEA044",Na:"#416A81"};
+var LANG=(function(){var v=null;try{v=localStorage.getItem("lang")}catch(e){}return v==="en"||v==="zh"?v:((navigator.language||"").toLowerCase().indexOf("zh")===0?"zh":"en")})();
+var EN={"你是誰？": "Who are you?", "我是 …": "I’m …", "首頁": "Home", "航班": "Flights", "行程": "Itinerary", "待辦": "To-do", "住宿": "Stay", "出發前": "Before you go", "行李": "Packing", "曼谷 5 天 4 夜": "Bangkok · 5 Days 4 Nights", "每日行程": "Daily Itinerary", "待辦清單": "To-do List", "住宿資訊": "Accommodation", "出發前清單": "Before-You-Go Checklist", "行李清單": "Packing List", "去程 · 11/26（四）": "Outbound · 11/26 (Thu)", "回程 · 11/30（一）": "Return · 11/30 (Mon)", "回程 · 12/2（三）凌晨": "Return · 12/2 (Wed) early morning", "台北桃園": "Taipei Taoyuan", "曼谷素萬那普": "Bangkok Suvarnabhumi", "曼谷廊曼": "Bangkok Don Mueang", "清邁": "Chiang Mai", "住宿 A・Circle REIN Sukhumvit 12": "Stay A · Circle REIN Sukhumvit 12", "住宿 B・曼谷素拉翁塞萬豪酒店": "Stay B · Bangkok Marriott Hotel The Surawongse", "2 晚": "2 nights", "開啟地圖": "Open map", "相對位置與交通": "Relative Locations & Transit", "祝大家旅途愉快 🌴": "Have a great trip! 🌴", "這天沒有需要移動的行程。": "No travel planned for this day.", "位置待補：": "Location TBD: ", "查路線": "Route", "地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。": "The map is a schematic and pin positions are approximate. Times are estimated from distance — tap “Route” for live Google Maps traffic.", "必去": "Must-go", "飛機": "Flight", "渡輪": "Ferry", "步行": "Walk", "火車": "Train", "旅途進行中，玩得開心！": "Trip in progress — have fun!", "天": "Days", "小時": "Hours", "分鐘": "Min", "Filo Tattoo（Na 刺青）": "Filo Tattoo (Na’s tattoo)", "鄭王廟附近的椰子餅店": "Coconut pancake shop near Wat Arun", "素萬那普機場": "Suvarnabhumi Airport", "廊曼機場": "Don Mueang Airport", "住宿 A": "Stay A", "住宿 B 萬豪": "Stay B (Marriott)", "廚藝教室": "Cooking school", "曼谷中央總站": "Krung Thep Aphiwat Terminal", "煙火秀 Song Wat": "Fireworks · Song Wat", "白天": "Daytime", "願望": "Wish list", "一早": "Early morning", "退房後": "After check-out", "課後": "After class", "接著": "Next", "上午": "Morning", "全天": "All day", "下午": "Afternoon", "出發・抵達曼谷": "Departure & arrival in Bangkok", "刺青・煙火秀": "Tattoo & fireworks", "廚藝教室・換住宿・Na 前往清邁": "Cooking class, hotel change & Na heads to Chiang Mai", "自由日": "Free day", "返程": "Heading home", "BR201 台北起飛": "BR201 departs Taipei", "前往住宿 A 放行李": "Head to Stay A and drop off bags", "SL397 台北起飛": "SL397 departs Taipei", "Na 抵達廊曼機場": "Na arrives at Don Mueang Airport", "Crimson Room 酒吧": "Crimson Room bar", "自由活動": "Free time", "Filo Tattoo 刺青（至 17:30）": "Filo Tattoo session (until 17:30)", "鄭王廟附近吃椰子餅": "Coconut pancakes near Wat Arun", "煙火秀＋無人機秀": "Fireworks + drone show", "Circle REIN Sukhumvit 12 退房": "Check out of Circle REIN Sukhumvit 12", "移動到曼谷素拉翁塞萬豪酒店寄放行李": "Move to Bangkok Marriott Hotel The Surawongse and leave bags", "Sompong Thai Cooking School 泰式廚藝教室（至 12:30）": "Sompong Thai Cooking School (until 12:30)", "回住宿 B 入住（視房況）": "Back to Stay B to check in (subject to availability)", "跑步用品店 ① Runtitude": "Running store ① Runtitude", "跑步用品店 ② Carnival": "Running store ② Carnival", "跑步用品店 ③ ORYM & BROOO": "Running store ③ ORYM & BROOO", "火車前往清邁": "Train to Chiang Mai", "住宿 B 退房": "Check out of Stay B", "抵達機場報到": "Arrive at the airport for check-in", "BR202 曼谷起飛": "BR202 departs Bangkok", "12:50 抵達曼谷素萬那普機場。": "Arrives at Suvarnabhumi Airport at 12:50.", "入境、領行李後出發，時間為暫定。": "Leave after immigration and baggage claim; time is tentative.", "19:35 抵達曼谷廊曼機場（DMK）。": "Arrives at Bangkok Don Mueang (DMK) at 19:35.", "入境後再前往酒吧會合。": "Heads to the bar to meet up after immigration.", "已預約。三人會合，第一晚乾杯！": "Reserved. All three meet up — cheers on the first night!", "還沒排，可以補上想去的地方。": "Nothing planned yet — add places you want to go.", "預計 4 小時。": "About 4 hours.", "三人一起的願望清單，時間還沒定，可以在煙火秀前順路吃。": "On all three’s wish list. Time not set — grab it on the way before the fireworks.", "鄭王廟對面、Song Wat Road 一帶，建議提早卡位。": "Across from Wat Arun around Song Wat Road. Get there early to claim a spot.", "一早就退房，帶著行李出發。": "Check out first thing and set off with your bags.", "先到住宿 B 掛行李，再前往廚藝教室。": "Drop bags at Stay B first, then head to the cooking class.", "已預約。08:50 前要到，從萬豪出發，記得預留交通時間。": "Reserved. Be there by 08:50 — you’ll leave from the Marriott, so allow travel time.", "Yupster 主打服飾與帽子，Motive 主打襪子。": "Yupster focuses on apparel and caps; Motive on socks.", "潮流風格，可以逛旗艦店。": "Streetwear style — worth visiting the flagship store.", "Central World 一次逛兩間。BROOO 主打 urban running，ORYM 主打戶外越野、圖騰風格。": "Two stores in one stop at Central World. BROOO focuses on urban running; ORYM on outdoor trail with totem-style designs.", "Krung Thep Aphiwat Central Terminal Station → Chiang Mai。之後 Na 開始自己的行程。": "Krung Thep Aphiwat Central Terminal Station → Chiang Mai. Na’s solo itinerary starts from here.", "尚未安排，想去哪裡可以先寫在待辦清單。": "Not planned yet — jot down where you want to go in the to-do list.", "建議至少提前 3 小時抵達。": "Arrive at least 3 hours before departure.", "19:15 抵達台北桃園。": "Arrives at Taipei Taoyuan at 19:15.", "查煙火秀／無人機秀的觀賞位置": "Find a good spot for the fireworks / drone show", "決定 11/29 自由日要去哪": "Decide where to go on the 11/29 free day", "護照效期（建議 6 個月以上）": "Passport validity (6+ months recommended)", "填寫泰國數位入境卡 TDAC": "Fill in the Thailand Digital Arrival Card (TDAC)", "網路報到、選位（BR201）": "Online check-in & seat selection (BR201)", "準備泰銖現金與信用卡": "Prepare Thai baht cash and a credit card", "買 eSIM 或開通漫遊": "Get an eSIM or enable roaming", "截圖住宿訂單與航班資訊": "Screenshot hotel bookings and flight info", "下載 Grab、Google 地圖離線地圖": "Download Grab and offline Google Maps", "旅遊保險": "Travel insurance", "護照": "Passport", "手機＋充電線": "Phone + charging cable", "行動電源（隨身帶，不能託運）": "Power bank (carry-on only, not checked luggage)", "輕薄透氣衣物": "Light, breathable clothes", "寺廟參觀用衣物（遮肩與膝蓋）": "Temple-visit clothes (cover shoulders and knees)", "好走的鞋＋拖鞋": "Comfortable shoes + sandals", "防曬、墨鏡、帽子": "Sunscreen, sunglasses, hat", "防蚊液": "Mosquito repellent", "小雨傘或輕便雨衣": "Small umbrella or light raincoat", "薄外套（室內冷氣強）": "Light jacket (air-con is strong indoors)", "個人藥品、衛生用品": "Personal medication & toiletries", "環保袋": "Tote bag"};
+function tr(x){return LANG==="en"&&EN[x]?EN[x]:x}
+var WE={"一":"Mon","三":"Wed","四":"Thu","五":"Fri","六":"Sat","日":"Sun"};
+function wk(w){return LANG==="en"?WE[w]:"週"+w}
+var STATIC=[];(function(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n;while(n=w.nextNode()){var tg=n.parentNode.tagName;if(tg==="SCRIPT"||tg==="STYLE")continue;var k=n.nodeValue.trim();if(EN[k])STATIC.push({n:n,o:n.nodeValue,k:k})}})();
+function applyStatic(){STATIC.forEach(function(x){x.n.nodeValue=LANG==="en"?x.o.replace(x.k,EN[x.k]):x.o})}
+function labels(){
+ $("#meBtn").textContent=me?(LANG==="en"?"I’m "+me:"我是 "+me):tr("我是 …");
+ $("#hi").textContent=me?(LANG==="en"?"Hi, "+me+"! Items that belong to you are highlighted below.":"嗨，"+me+"！下面的行程會幫你標出屬於你的部分。"):"";
+}
+function applyLang(){
+ document.documentElement.lang=LANG==="en"?"en":"zh-Hant";
+ document.title=LANG==="en"?"Bangkok 5 Days 4 Nights | Trip Itinerary":"曼谷 5 天 4 夜｜旅遊行程";
+ applyStatic();labels();cd();
+ if(me){days();plan();lists();flights()}
+ document.querySelectorAll("[data-l]").forEach(function(b){b.classList.toggle("on",b.dataset.l===LANG)});
+}
 var MAP={A:"https://maps.app.goo.gl/k1oXnw3XJsiitL986?g_st=ic",B:"https://maps.app.goo.gl/i3fAE3yVTM78zgfr8?g_st=ic",C:"https://maps.app.goo.gl/scsGjsEEdsTczaKCA?g_st=ic",BAR:"https://maps.app.goo.gl/PsmFqY5fcxLvNoqu7?g_st=ic",TAT:"https://maps.app.goo.gl/DYfH9bTW2PmvwjSr7?g_st=ic",R1:"https://maps.app.goo.gl/BouzzceNKSBV1zym6?g_st=ic",R2:"https://maps.app.goo.gl/XdMNus3PYFmtY5US8?g_st=ic",R3:"https://maps.app.goo.gl/GCXnSfHdvg71BMRw7?g_st=ic",CK:"https://maps.app.goo.gl/vrjWM2vzmbHYVbXR7?g_st=il"};
 var TC={"飛機":"#416A81","火車":"#BF8250","Grab":"#DEA044","渡輪":"#CDC8B8","步行":"#9D473A"};
 var SY=["Sang","YZT"],NA=["Na"];
@@ -276,21 +304,21 @@ function pop(el){el.classList.remove("pop");void el.offsetWidth;el.classList.add
 
 function cd(){
  var t=new Date("2026-11-26T09:45:00+08:00")-Date.now(),el=$("#cd");
- if(t<=0){el.innerHTML='<p class="go">旅途進行中，玩得開心！</p>';return}
+ if(t<=0){el.innerHTML='<p class="go">'+tr("旅途進行中，玩得開心！")+'</p>';return}
  var d=Math.floor(t/864e5),h=Math.floor(t/36e5)%24,m=Math.floor(t/6e4)%60;
- el.innerHTML='<div><b>'+d+'</b><small>天</small></div><div><b>'+h+'</b><small>小時</small></div><div><b>'+m+'</b><small>分鐘</small></div>';
+ el.innerHTML='<div><b>'+d+'</b><small>'+tr("天")+'</small></div><div><b>'+h+'</b><small>'+tr("小時")+'</small></div><div><b>'+m+'</b><small>'+tr("分鐘")+'</small></div>';
 }
 function days(){
- $("#days").innerHTML=D.map(function(x,n){return '<button type="button" class="dbtn'+(n===day?' on':'')+'" data-n="'+n+'"><b>'+x.d+'</b><small>週'+x.w+'</small></button>'}).join("");
+ $("#days").innerHTML=D.map(function(x,n){return '<button type="button" class="dbtn'+(n===day?' on':'')+'" data-n="'+n+'"><b>'+x.d+'</b><small>'+wk(x.w)+'</small></button>'}).join("");
 }
 function plan(){
  var d=D[day];setTimeout(drawMap,0);
- $("#dayTitle").textContent=d.d+"（週"+d.w+"）"+d.t;
+ $("#dayTitle").textContent=LANG==="en"?d.d+" ("+wk(d.w)+") "+tr(d.t):d.d+"（週"+d.w+"）"+d.t;
  $("#tl").innerHTML=d.i.map(function(x){
   var mine=x[3]==="all"||x[3].indexOf(me)>-1;
   var who=x[3]==="all"?"":'<span class="who">'+x[3].join(" · ")+'</span>';
-  var tags=x[2].map(function(t){return '<span class="tag" style="background:'+TC[t]+'">'+t+'</span>'}).join("");
-  return '<li class="ti'+(mine?'':' off')+'"><time>'+x[0]+'</time><div class="c"><div class="r"><b>'+x[1]+'</b>'+(x[4]?'<span class="must">必去</span>':'')+'</div>'+(tags||who?'<div class="tags">'+tags+who+'</div>':'')+(x[5]?'<p>'+x[5]+'</p>':'')+(x[6]?'<a class="map" href="'+MAP[x[6]]+'" target="_blank" rel="noopener">開啟地圖</a>':'')+'</div></li>';
+  var tags=x[2].map(function(t){return '<span class="tag" style="background:'+TC[t]+'">'+tr(t)+'</span>'}).join("");
+  return '<li class="ti'+(mine?'':' off')+'"><time>'+tr(x[0])+'</time><div class="c"><div class="r"><b>'+tr(x[1])+'</b>'+(x[4]?'<span class="must">'+tr("必去")+'</span>':'')+'</div>'+(tags||who?'<div class="tags">'+tags+who+'</div>':'')+(x[5]?'<p>'+tr(x[5])+'</p>':'')+(x[6]?'<a class="map" href="'+MAP[x[6]]+'" target="_blank" rel="noopener">'+tr("開啟地圖")+'</a>':'')+'</div></li>';
  }).join("");
 }
 function lists(){
@@ -298,7 +326,7 @@ function lists(){
   var box=$("#L-"+id),n=0;
   box.innerHTML='<span class="prog"></span>'+LS[id].map(function(t,i){
    var on=g("ck_"+me+"_"+id+"_"+i)==="1";if(on)n++;
-   return '<label class="ck"><input type="checkbox" data-k="ck_'+me+'_'+id+'_'+i+'"'+(on?' checked':'')+'><span>'+t+'</span></label>';
+   return '<label class="ck"><input type="checkbox" data-k="ck_'+me+'_'+id+'_'+i+'"'+(on?' checked':'')+'><span>'+tr(t)+'</span></label>';
   }).join("");
   prog(box);
  });
@@ -309,8 +337,8 @@ function prog(box){
 }
 function enter(p){
  me=p;s("who",p);$("#gate").hidden=true;
- $("#meBtn").textContent="我是 "+p;$("#meBtn").style.background=PC[p];$("#meBtn").style.color=PT[p];
- $("#hi").textContent="嗨，"+p+"！下面的行程會幫你標出屬於你的部分。";
+ $("#meBtn").style.background=PC[p];$("#meBtn").style.color=PT[p];
+ labels();
  fsel=p;flights();days();plan();lists();window.scrollTo(0,0);
 }
 $("#picks").innerHTML=P.map(function(p){return '<button type="button" class="pick" data-p="'+p+'" style="background:'+PC[p]+';color:'+PT[p]+'">'+p+'</button>'}).join("");
@@ -331,13 +359,13 @@ var MD=[
 var CL=["--coral","--yellow","--sky","--green","--purple"],CT=[1,0,1,0,0];
 function vis(w){return w==="all"||w.indexOf(me)>-1}
 function kmd(a,b){var r=Math.PI/180,x=Math.sin((b[1]-a[1])*r/2),y=Math.sin((b[2]-a[2])*r/2);return 12742*Math.asin(Math.sqrt(x*x+Math.cos(a[1]*r)*Math.cos(b[1]*r)*y*y))}
-function est(k){var r=k*1.3;if(r<1)return "步行約 "+Math.max(3,Math.round(r/4.5*60))+" 分";var b=5+(r<=8?r*3.2:25.6+(r-8)*1.6);return "車程約 "+Math.round(b*.8)+"–"+Math.round(b*1.4)+" 分"}
+function est(k){var r=k*1.3,e=LANG==="en";if(r<1){var w=Math.max(3,Math.round(r/4.5*60));return e?"Walk ~"+w+" min":"步行約 "+w+" 分"}var b=5+(r<=8?r*3.2:25.6+(r-8)*1.6),lo=Math.round(b*.8),hi=Math.round(b*1.4);return e?"Ride ~"+lo+"–"+hi+" min":"車程約 "+lo+"–"+hi+" 分"}
 function drawMap(){
  var box=$("#mapCard"),m=MD[day];
  var st=m.s.filter(function(x){return vis(x[1])}).map(function(x){return x[0]});
  var lg=m.l.filter(function(x){return vis(x[2])&&st.indexOf(x[0])>-1&&st.indexOf(x[1])>-1});
  var un=m.u.filter(function(x){return vis(x[1])}).map(function(x){return x[0]});
- if(!st.length&&!un.length){box.innerHTML="<p style='margin:0'>這天沒有需要移動的行程。</p>";return}
+ if(!st.length&&!un.length){box.innerHTML="<p style='margin:0'>"+tr("這天沒有需要移動的行程。")+"</p>";return}
  var W=340,H=220,pd=30,pos={},html="";
  if(st.length){
   var la=st.map(function(i){return PL[i][1]}),lo=st.map(function(i){return PL[i][2]});
@@ -352,12 +380,12 @@ function drawMap(){
   st.forEach(function(i,n){var c=n%5;svg+='<circle cx="'+pos[i][0]+'" cy="'+pos[i][1]+'" r="13" style="fill:var('+CL[c]+')" stroke="#3E3A39" stroke-width="3"/><text x="'+pos[i][0]+'" y="'+(pos[i][1]+4.5)+'" text-anchor="middle" font-size="13" font-weight="bold" fill="'+(CT[c]?'#FFFCF6':'#3E3A39')+'">'+(n+1)+'</text>'});
   svg+='</svg>';
   html='<div class="mapcard">'+svg+'</div>';
-  html+=st.map(function(i,n){var c=n%5;return '<span class="lg"><b style="background:var('+CL[c]+');color:'+(CT[c]?'#FFFCF6':'#3E3A39')+'">'+(n+1)+'</b>'+PL[i][0]+'</span>'}).join("");
+  html+=st.map(function(i,n){var c=n%5;return '<span class="lg"><b style="background:var('+CL[c]+');color:'+(CT[c]?'#FFFCF6':'#3E3A39')+'">'+(n+1)+'</b>'+tr(PL[i][0])+'</span>'}).join("");
   html+=lg.map(function(x){var a=PL[x[0]],b=PL[x[1]],d=kmd(a,b);
-   return '<div class="leg"><div><b>'+a[0]+' → '+b[0]+'</b><small>直線約 '+d.toFixed(1)+' km・'+est(d)+'</small></div><a class="map" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(a[3])+'&destination='+encodeURIComponent(b[3])+'" target="_blank" rel="noopener">查路線</a></div>'}).join("");
+   return '<div class="leg"><div><b>'+tr(a[0])+' → '+tr(b[0])+'</b><small>'+(LANG==="en"?"Straight-line ~"+d.toFixed(1)+" km · ":"直線約 "+d.toFixed(1)+" km・")+est(d)+'</small></div><a class="map" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(a[3])+'&destination='+encodeURIComponent(b[3])+'" target="_blank" rel="noopener">'+tr("查路線")+'</a></div>'}).join("");
  }
- if(un.length)html+='<p class="mnote">位置待補：'+un.join("、")+'</p>';
- html+='<p class="mnote">地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。</p>';
+ if(un.length)html+='<p class="mnote">'+tr("位置待補：")+un.map(tr).join(LANG==="en"?", ":"、")+'</p>';
+ html+='<p class="mnote">'+tr("地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。")+'</p>';
  box.innerHTML=html;
 }
 var fsel=null;
@@ -375,7 +403,13 @@ document.addEventListener("change",function(e){
  var i=e.target;if(i.type!=="checkbox")return;
  s(i.dataset.k,i.checked?"1":"0");prog(i.closest(".card"));
 });
-cd();setInterval(cd,30000);
+document.addEventListener("click",function(e){
+ var b=e.target.closest("[data-l]");
+ if(b){LANG=b.dataset.l;s("lang",LANG);$("#lm").hidden=true;applyLang();return}
+ if(e.target.closest("#langBtn")){$("#lm").hidden=!$("#lm").hidden;return}
+ if(!e.target.closest("#lm"))$("#lm").hidden=true;
+});
+applyLang();setInterval(cd,30000);
 var saved=g("who");
 if(saved&&P.indexOf(saved)>-1)enter(saved);
 </script>
