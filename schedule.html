@@ -446,15 +446,27 @@ function drawMap(){
  html+='<p class="mnote">'+tr("地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。")+'</p>';
  box.innerHTML=html;
 }
-var SPLIT_URL="",GS=!!(window.google&&google.script&&google.script.run),SD=null,sTab="sum",sForm=null;
+// 把 Apps Script「網頁應用程式」的網址（https://script.google.com/macros/s/…/exec）貼在這裡，放在 GitHub Pages 等地方時才連得到試算表
+var API_URL="https://script.google.com/macros/s/AKfycbzzsiNj8twokR575nDHYaCl1y7lzuTumD70Z7Rs_rEzHnCcIeJvKnZ9DWgvnsUJfMUA6A/exec";
+var SPLIT_URL="",GS=!!(window.google&&google.script&&google.script.run),HAS=GS||!!API_URL,SD=null,sTab="sum",sForm=null;
 function L(z,e){return LANG==="en"?e:z}
 function esc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function money(n){return "NT$"+Math.round(n).toLocaleString()}
 function spToast(m){var t=$("#spToast");t.textContent=m;t.style.display="block";clearTimeout(spToast.t);spToast.t=setTimeout(function(){t.style.display="none"},3200)}
+function rpc(fn,args,ok,bad){
+ if(GS){var r=google.script.run.withSuccessHandler(ok).withFailureHandler(function(e){bad(e&&e.message?e.message:String(e))});r[fn].apply(r,args);return}
+ var key="";try{key=localStorage.getItem("splitKey")||""}catch(e){}
+ fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({fn:fn,args:args,key:key})})
+ .then(function(r){return r.json()})
+ .then(function(j){
+  if(j.error==="需要密碼"){var k=prompt(L("請輸入分帳密碼","Enter the splitter passcode"));if(k){try{localStorage.setItem("splitKey",k)}catch(e){}rpc(fn,args,ok,bad)}else bad(L("需要密碼","Passcode required"));return}
+  if(j.error)bad(j.error);else ok(j.ok);
+ })
+ .catch(function(){bad(L("連不到分帳後端，請確認網路與部署設定","Can’t reach the backend — check your connection and deployment"))});
+}
 function spCall(fn,args,ok){
  $("#spLoadMsg").textContent=L("處理中…","Working…");$("#spLoad").style.display="flex";
- var r=google.script.run.withSuccessHandler(function(d){$("#spLoad").style.display="none";ok(d)}).withFailureHandler(function(e){$("#spLoad").style.display="none";spToast(e&&e.message?e.message:String(e))});
- r[fn].apply(r,args);
+ rpc(fn,args,function(d){$("#spLoad").style.display="none";ok(d)},function(m){$("#spLoad").style.display="none";spToast(m)});
 }
 function spNets(){var n={};SD.summary.forEach(function(x){n[x.m]=x.net});SD.settlements.forEach(function(x){if(x.status==="已完成"){n[x.from]=(n[x.from]||0)+x.amt;n[x.to]=(n[x.to]||0)-x.amt}});return n}
 function spPlan(n){
@@ -468,7 +480,7 @@ function spMode(m){return m==="均分"?L("均分","Equal"):m==="自訂"?L("自�
 function spStat(x){return x==="已完成"?L("已完成","Done"):x==="待轉帳"?L("待轉帳","Pending"):x}
 function spView(){
  var box=$("#spBody");if(!box)return;
- if(!GS){box.innerHTML='<div class="card"><p style="margin:0 0 10px">'+L("分帳資料存在你們的 Google 試算表，要從 Apps Script 發布的網址開啟才能使用。","The expense splitter reads and writes your Google Sheet, so it only works when this page is opened from the Apps Script web app link.")+'</p>'+(SPLIT_URL?'<a class="map" href="'+SPLIT_URL+'" target="_blank" rel="noopener">'+L("開啟完整版","Open full version")+'</a>':'')+'</div>';return}
+ if(!HAS){box.innerHTML='<div class="card"><p style="margin:0 0 10px">'+L("分帳需要連到你們的 Google 試算表，請從已連結後端的網址開啟（例如 GitHub Pages 或 Apps Script 網址）。","The expense splitter needs a connection to your Google Sheet. Open the version that is linked to the backend (e.g. GitHub Pages or the Apps Script link).")+'</p>'+(SPLIT_URL?'<a class="map" href="'+SPLIT_URL+'" target="_blank" rel="noopener">'+L("開啟完整版","Open full version")+'</a>':'')+'</div>';return}
  if(!SD){box.innerHTML='<div class="card">'+L("載入中…","Loading…")+'</div>';return}
  var T=[["sum",L("總覽","Overview")],["add",L("記帳","Add")],["list",L("明細","History")]];
  box.innerHTML='<div class="days" id="spTabs">'+T.map(function(t){return '<button type="button" class="dbtn'+(t[0]===sTab?' on':'')+'" data-t="'+t[0]+'"><b>'+t[1]+'</b></button>'}).join("")+'</div><div id="spPane"></div>';
@@ -522,7 +534,7 @@ function spAdd(pane,h){
   spCall("addExpense",[p],function(d){SD=d;sForm=null;sTab="list";spToast(L("已新增","Added"));spView()});
  };
 }
-if(GS)google.script.run.withSuccessHandler(function(d){SD=d;spView()}).withFailureHandler(function(e){spToast(e&&e.message?e.message:String(e))}).getData();
+if(HAS)rpc("getData",[],function(d){SD=d;spView()},function(m){spToast(m)});
 var wrot=0,spinning=false,lastWin=-1;
 function showWin(){
  var el=$("#win");if(lastWin<0){el.innerHTML="";return}
