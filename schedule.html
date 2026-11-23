@@ -116,6 +116,22 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
 .links .grp:nth-child(2){background:var(--yellow)}.links .grp:nth-child(5){background:var(--purple)}
 .lm a{font:inherit;font-size:15px;color:var(--ink);text-decoration:none;background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:4px 16px;text-align:center;white-space:nowrap}
 .gm{right:auto}
+.map[hidden],.mnote[hidden]{display:none}
+#spBody input[type=text],#spBody input[type=number],#spBody input[type=date],#spBody select{width:100%;border:3px solid var(--ink);border-radius:14px;background:var(--paper);padding:6px 10px;font:inherit;color:var(--ink)}
+.spf{display:block;margin:10px 0 2px;font-size:14px}
+.sp-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sp-chips{display:flex;gap:8px;flex-wrap:wrap}
+.sp-chip{border:3px solid var(--ink);border-radius:999px;padding:2px 14px;background:var(--paper);cursor:pointer;user-select:none}
+.sp-chip.on{background:var(--yellow)}
+.sp-btn{border:3px solid var(--ink);border-radius:999px;background:var(--yellow);font:inherit;color:var(--ink);padding:6px 24px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.sp-btn.s{padding:0 12px;font-size:14px;box-shadow:none}
+.sp-del{border:2px solid var(--ink);border-radius:999px;background:var(--paper);font:inherit;font-size:12px;color:var(--ink);padding:0 10px;cursor:pointer}
+.sp-ex{border-top:2px dashed var(--ink);padding:8px 0}.sp-ex:first-child{border-top:0}
+.sp-big{font-size:22px;font-weight:bold}
+.pos{color:#2f6b3a;font-weight:bold}.neg{color:var(--coral);font-weight:bold}
+.sp-warn{background:var(--yellow);border:3px solid var(--ink);border-radius:16px;padding:6px 12px;margin-bottom:12px;font-size:14px}
+#spToast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 18px;border-radius:999px;font-size:14px;max-width:90%;display:none;z-index:90}
+#spLoad{position:fixed;inset:0;background:rgba(245,238,220,.7);display:none;align-items:center;justify-content:center;z-index:90}
 .wheelbox{max-width:300px;margin:6px auto 0}.wheelbox svg{display:block;width:100%;height:auto}
 .win{min-height:56px;margin:8px 0;text-align:center;font-size:22px}
 .win span{display:inline-block;padding:4px 20px;border:3px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 var(--ink)}
@@ -148,7 +164,7 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
 
 <header class="nav">
   <nav class="links">
-    <a href="#top">首頁</a><button class="grp" type="button" data-g="g1">航班・住宿 <i aria-hidden="true">▾</i></button><a href="#plan">行程</a><a href="#todo">待辦</a><button class="grp" type="button" data-g="g2">行前・行李 <i aria-hidden="true">▾</i></button><a href="#tools">小工具</a>
+    <a href="#top">首頁</a><button class="grp" type="button" data-g="g1">航班・住宿 <i aria-hidden="true">▾</i></button><a href="#plan">行程</a><a href="#todo">待辦</a><button class="grp" type="button" data-g="g2">行前・行李 <i aria-hidden="true">▾</i></button><a href="#tools">小工具</a><a href="#split">分帳</a>
   </nav>
   <button class="me" id="meBtn" type="button">我是 …</button>
   <button class="me glb" id="langBtn" type="button" aria-label="Language / 語言" aria-haspopup="true"><svg viewBox="0 0 24 24" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></button>
@@ -268,12 +284,19 @@ footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-botto
   </div>
 </section>
 
+<section id="split">
+  <h2>旅費分帳</h2>
+  <div id="spBody"></div>
+</section>
+<div id="spToast"></div>
+<div id="spLoad"><div class="card" id="spLoadMsg"></div></div>
+
 <footer>祝大家旅途愉快 🌴</footer>
 
 <script>
 var P=["Sang","YZT","Na"],PC={Sang:"#9D473A",YZT:"#DEA044",Na:"#416A81"};
 var LANG=(function(){var v=null;try{v=localStorage.getItem("lang")}catch(e){}return v==="en"||v==="zh"?v:((navigator.language||"").toLowerCase().indexOf("zh")===0?"zh":"en")})();
-var EN={"你是誰？": "Who are you?", "航班・住宿": "Flights · Stay", "行前・行李": "Prep · Packing", "小工具": "Tools", "Khanom Bueang 椰子餅": "Khanom Bueang pancakes", "預計 4 小時。店在 Ramkhamhaeng 44 一帶（Lumpini Ville Ramkhamhaeng 44 附近，Hua Mak, Bang Kapi）。": "About 4 hours. The shop is around Ramkhamhaeng Soi 44 (near Lumpini Ville Ramkhamhaeng 44, Hua Mak, Bang Kapi).", "Khanom Bueang（ขนมเบื้อง วัดอรุณ），101/133 Thanon Wang Doem。三人一起的願望清單，時間還沒定，可以在煙火秀前順路吃。": "Khanom Bueang (ขนมเบื้อง วัดอรุณ), 101/133 Thanon Wang Doem. On all three’s wish list. Time not set — grab it on the way before the fireworks.", "椰子餅（鄭王廟附近）": "Coconut pancakes (near Wat Arun)", "位置待補，點「查路線」看距離與時間": "Location TBD — tap “Route” for distance and time", "（位置待補）": " (location TBD)", "轉盤抽籤": "Spin the Wheel", "三個人各有 1/3 的機會。": "Each of the three has an equal 1-in-3 chance.", "轉！": "Spin!", "我是 …": "I’m …", "首頁": "Home", "航班": "Flights", "行程": "Itinerary", "待辦": "To-do", "住宿": "Stay", "出發前": "Before you go", "行李": "Packing", "曼谷 5 天 4 夜": "Bangkok · 5 Days 4 Nights", "每日行程": "Daily Itinerary", "待辦清單": "To-do List", "住宿資訊": "Accommodation", "出發前清單": "Before-You-Go Checklist", "行李清單": "Packing List", "去程 · 11/26（四）": "Outbound · 11/26 (Thu)", "回程 · 11/30（一）": "Return · 11/30 (Mon)", "回程 · 12/2（三）凌晨": "Return · 12/2 (Wed) early morning", "台北桃園": "Taipei Taoyuan", "曼谷素萬那普": "Bangkok Suvarnabhumi", "曼谷廊曼": "Bangkok Don Mueang", "清邁": "Chiang Mai", "住宿 A・Circle REIN Sukhumvit 12": "Stay A · Circle REIN Sukhumvit 12", "住宿 B・曼谷素拉翁塞萬豪酒店": "Stay B · Bangkok Marriott Hotel The Surawongse", "2 晚": "2 nights", "開啟地圖": "Open map", "相對位置與交通": "Relative Locations & Transit", "祝大家旅途愉快 🌴": "Have a great trip! 🌴", "這天沒有需要移動的行程。": "No travel planned for this day.", "位置待補：": "Location TBD: ", "查路線": "Route", "地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。": "The map is a schematic and pin positions are approximate. Times are estimated from distance — tap “Route” for live Google Maps traffic.", "必去": "Must-go", "飛機": "Flight", "渡輪": "Ferry", "步行": "Walk", "火車": "Train", "旅途進行中，玩得開心！": "Trip in progress — have fun!", "天": "Days", "小時": "Hours", "分鐘": "Min", "Filo Tattoo（Na 刺青）": "Filo Tattoo (Na’s tattoo)", "鄭王廟附近的椰子餅店": "Coconut pancake shop near Wat Arun", "素萬那普機場": "Suvarnabhumi Airport", "廊曼機場": "Don Mueang Airport", "住宿 A": "Stay A", "住宿 B 萬豪": "Stay B (Marriott)", "廚藝教室": "Cooking school", "曼谷中央總站": "Krung Thep Aphiwat Terminal", "煙火秀 Song Wat": "Fireworks · Song Wat", "白天": "Daytime", "願望": "Wish list", "一早": "Early morning", "退房後": "After check-out", "課後": "After class", "接著": "Next", "上午": "Morning", "全天": "All day", "下午": "Afternoon", "出發・抵達曼谷": "Departure & arrival in Bangkok", "刺青・煙火秀": "Tattoo & fireworks", "廚藝教室・換住宿・Na 前往清邁": "Cooking class, hotel change & Na heads to Chiang Mai", "自由日": "Free day", "返程": "Heading home", "BR201 台北起飛": "BR201 departs Taipei", "前往住宿 A 放行李": "Head to Stay A and drop off bags", "SL397 台北起飛": "SL397 departs Taipei", "Na 抵達廊曼機場": "Na arrives at Don Mueang Airport", "Crimson Room 酒吧": "Crimson Room bar", "自由活動": "Free time", "Filo Tattoo 刺青（至 17:30）": "Filo Tattoo session (until 17:30)", "鄭王廟附近吃椰子餅": "Coconut pancakes near Wat Arun", "煙火秀＋無人機秀": "Fireworks + drone show", "Circle REIN Sukhumvit 12 退房": "Check out of Circle REIN Sukhumvit 12", "移動到曼谷素拉翁塞萬豪酒店寄放行李": "Move to Bangkok Marriott Hotel The Surawongse and leave bags", "Sompong Thai Cooking School 泰式廚藝教室（至 12:30）": "Sompong Thai Cooking School (until 12:30)", "回住宿 B 入住（視房況）": "Back to Stay B to check in (subject to availability)", "跑步用品店 ① Runtitude": "Running store ① Runtitude", "跑步用品店 ② Carnival": "Running store ② Carnival", "跑步用品店 ③ ORYM & BROOO": "Running store ③ ORYM & BROOO", "火車前往清邁": "Train to Chiang Mai", "住宿 B 退房": "Check out of Stay B", "抵達機場報到": "Arrive at the airport for check-in", "BR202 曼谷起飛": "BR202 departs Bangkok", "12:50 抵達曼谷素萬那普機場。": "Arrives at Suvarnabhumi Airport at 12:50.", "入境、領行李後出發，時間為暫定。": "Leave after immigration and baggage claim; time is tentative.", "19:35 抵達曼谷廊曼機場（DMK）。": "Arrives at Bangkok Don Mueang (DMK) at 19:35.", "入境後再前往酒吧會合。": "Heads to the bar to meet up after immigration.", "已預約。三人會合，第一晚乾杯！": "Reserved. All three meet up — cheers on the first night!", "還沒排，可以補上想去的地方。": "Nothing planned yet — add places you want to go.", "預計 4 小時。": "About 4 hours.", "三人一起的願望清單，時間還沒定，可以在煙火秀前順路吃。": "On all three’s wish list. Time not set — grab it on the way before the fireworks.", "鄭王廟對面、Song Wat Road 一帶，建議提早卡位。": "Across from Wat Arun around Song Wat Road. Get there early to claim a spot.", "一早就退房，帶著行李出發。": "Check out first thing and set off with your bags.", "先到住宿 B 掛行李，再前往廚藝教室。": "Drop bags at Stay B first, then head to the cooking class.", "已預約。08:50 前要到，從萬豪出發，記得預留交通時間。": "Reserved. Be there by 08:50 — you’ll leave from the Marriott, so allow travel time.", "Yupster 主打服飾與帽子，Motive 主打襪子。": "Yupster focuses on apparel and caps; Motive on socks.", "潮流風格，可以逛旗艦店。": "Streetwear style — worth visiting the flagship store.", "Central World 一次逛兩間。BROOO 主打 urban running，ORYM 主打戶外越野、圖騰風格。": "Two stores in one stop at Central World. BROOO focuses on urban running; ORYM on outdoor trail with totem-style designs.", "Krung Thep Aphiwat Central Terminal Station → Chiang Mai。之後 Na 開始自己的行程。": "Krung Thep Aphiwat Central Terminal Station → Chiang Mai. Na’s solo itinerary starts from here.", "尚未安排，想去哪裡可以先寫在待辦清單。": "Not planned yet — jot down where you want to go in the to-do list.", "建議至少提前 3 小時抵達。": "Arrive at least 3 hours before departure.", "19:15 抵達台北桃園。": "Arrives at Taipei Taoyuan at 19:15.", "查煙火秀／無人機秀的觀賞位置": "Find a good spot for the fireworks / drone show", "決定 11/29 自由日要去哪": "Decide where to go on the 11/29 free day", "護照效期（建議 6 個月以上）": "Passport validity (6+ months recommended)", "填寫泰國數位入境卡 TDAC": "Fill in the Thailand Digital Arrival Card (TDAC)", "網路報到、選位（BR201）": "Online check-in & seat selection (BR201)", "準備泰銖現金與信用卡": "Prepare Thai baht cash and a credit card", "買 eSIM 或開通漫遊": "Get an eSIM or enable roaming", "截圖住宿訂單與航班資訊": "Screenshot hotel bookings and flight info", "下載 Grab、Google 地圖離線地圖": "Download Grab and offline Google Maps", "旅遊保險": "Travel insurance", "護照": "Passport", "手機＋充電線": "Phone + charging cable", "行動電源（隨身帶，不能託運）": "Power bank (carry-on only, not checked luggage)", "輕薄透氣衣物": "Light, breathable clothes", "寺廟參觀用衣物（遮肩與膝蓋）": "Temple-visit clothes (cover shoulders and knees)", "好走的鞋＋拖鞋": "Comfortable shoes + sandals", "防曬、墨鏡、帽子": "Sunscreen, sunglasses, hat", "防蚊液": "Mosquito repellent", "小雨傘或輕便雨衣": "Small umbrella or light raincoat", "薄外套（室內冷氣強）": "Light jacket (air-con is strong indoors)", "個人藥品、衛生用品": "Personal medication & toiletries", "環保袋": "Tote bag"};
+var EN={"你是誰？": "Who are you?", "航班・住宿": "Flights · Stay", "行前・行李": "Prep · Packing", "小工具": "Tools", "分帳": "Split", "旅費分帳": "Expense Splitting", "記帳、算誰該付誰。資料存在你們的 Google 試算表。": "Log expenses and see who owes whom. Data is stored in your Google Sheet.", "開啟分帳": "Open splitter", "尚未連結分帳網頁。": "The splitting page isn’t linked yet.", "Khanom Bueang 椰子餅": "Khanom Bueang pancakes", "預計 4 小時。店在 Ramkhamhaeng 44 一帶（Lumpini Ville Ramkhamhaeng 44 附近，Hua Mak, Bang Kapi）。": "About 4 hours. The shop is around Ramkhamhaeng Soi 44 (near Lumpini Ville Ramkhamhaeng 44, Hua Mak, Bang Kapi).", "Khanom Bueang（ขนมเบื้อง วัดอรุณ），101/133 Thanon Wang Doem。三人一起的願望清單，時間還沒定，可以在煙火秀前順路吃。": "Khanom Bueang (ขนมเบื้อง วัดอรุณ), 101/133 Thanon Wang Doem. On all three’s wish list. Time not set — grab it on the way before the fireworks.", "椰子餅（鄭王廟附近）": "Coconut pancakes (near Wat Arun)", "位置待補，點「查路線」看距離與時間": "Location TBD — tap “Route” for distance and time", "（位置待補）": " (location TBD)", "轉盤抽籤": "Spin the Wheel", "三個人各有 1/3 的機會。": "Each of the three has an equal 1-in-3 chance.", "轉！": "Spin!", "我是 …": "I’m …", "首頁": "Home", "航班": "Flights", "行程": "Itinerary", "待辦": "To-do", "住宿": "Stay", "出發前": "Before you go", "行李": "Packing", "曼谷 5 天 4 夜": "Bangkok · 5 Days 4 Nights", "每日行程": "Daily Itinerary", "待辦清單": "To-do List", "住宿資訊": "Accommodation", "出發前清單": "Before-You-Go Checklist", "行李清單": "Packing List", "去程 · 11/26（四）": "Outbound · 11/26 (Thu)", "回程 · 11/30（一）": "Return · 11/30 (Mon)", "回程 · 12/2（三）凌晨": "Return · 12/2 (Wed) early morning", "台北桃園": "Taipei Taoyuan", "曼谷素萬那普": "Bangkok Suvarnabhumi", "曼谷廊曼": "Bangkok Don Mueang", "清邁": "Chiang Mai", "住宿 A・Circle REIN Sukhumvit 12": "Stay A · Circle REIN Sukhumvit 12", "住宿 B・曼谷素拉翁塞萬豪酒店": "Stay B · Bangkok Marriott Hotel The Surawongse", "2 晚": "2 nights", "開啟地圖": "Open map", "相對位置與交通": "Relative Locations & Transit", "祝大家旅途愉快 🌴": "Have a great trip! 🌴", "這天沒有需要移動的行程。": "No travel planned for this day.", "位置待補：": "Location TBD: ", "查路線": "Route", "地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。": "The map is a schematic and pin positions are approximate. Times are estimated from distance — tap “Route” for live Google Maps traffic.", "必去": "Must-go", "飛機": "Flight", "渡輪": "Ferry", "步行": "Walk", "火車": "Train", "旅途進行中，玩得開心！": "Trip in progress — have fun!", "天": "Days", "小時": "Hours", "分鐘": "Min", "Filo Tattoo（Na 刺青）": "Filo Tattoo (Na’s tattoo)", "鄭王廟附近的椰子餅店": "Coconut pancake shop near Wat Arun", "素萬那普機場": "Suvarnabhumi Airport", "廊曼機場": "Don Mueang Airport", "住宿 A": "Stay A", "住宿 B 萬豪": "Stay B (Marriott)", "廚藝教室": "Cooking school", "曼谷中央總站": "Krung Thep Aphiwat Terminal", "煙火秀 Song Wat": "Fireworks · Song Wat", "白天": "Daytime", "願望": "Wish list", "一早": "Early morning", "退房後": "After check-out", "課後": "After class", "接著": "Next", "上午": "Morning", "全天": "All day", "下午": "Afternoon", "出發・抵達曼谷": "Departure & arrival in Bangkok", "刺青・煙火秀": "Tattoo & fireworks", "廚藝教室・換住宿・Na 前往清邁": "Cooking class, hotel change & Na heads to Chiang Mai", "自由日": "Free day", "返程": "Heading home", "BR201 台北起飛": "BR201 departs Taipei", "前往住宿 A 放行李": "Head to Stay A and drop off bags", "SL397 台北起飛": "SL397 departs Taipei", "Na 抵達廊曼機場": "Na arrives at Don Mueang Airport", "Crimson Room 酒吧": "Crimson Room bar", "自由活動": "Free time", "Filo Tattoo 刺青（至 17:30）": "Filo Tattoo session (until 17:30)", "鄭王廟附近吃椰子餅": "Coconut pancakes near Wat Arun", "煙火秀＋無人機秀": "Fireworks + drone show", "Circle REIN Sukhumvit 12 退房": "Check out of Circle REIN Sukhumvit 12", "移動到曼谷素拉翁塞萬豪酒店寄放行李": "Move to Bangkok Marriott Hotel The Surawongse and leave bags", "Sompong Thai Cooking School 泰式廚藝教室（至 12:30）": "Sompong Thai Cooking School (until 12:30)", "回住宿 B 入住（視房況）": "Back to Stay B to check in (subject to availability)", "跑步用品店 ① Runtitude": "Running store ① Runtitude", "跑步用品店 ② Carnival": "Running store ② Carnival", "跑步用品店 ③ ORYM & BROOO": "Running store ③ ORYM & BROOO", "火車前往清邁": "Train to Chiang Mai", "住宿 B 退房": "Check out of Stay B", "抵達機場報到": "Arrive at the airport for check-in", "BR202 曼谷起飛": "BR202 departs Bangkok", "12:50 抵達曼谷素萬那普機場。": "Arrives at Suvarnabhumi Airport at 12:50.", "入境、領行李後出發，時間為暫定。": "Leave after immigration and baggage claim; time is tentative.", "19:35 抵達曼谷廊曼機場（DMK）。": "Arrives at Bangkok Don Mueang (DMK) at 19:35.", "入境後再前往酒吧會合。": "Heads to the bar to meet up after immigration.", "已預約。三人會合，第一晚乾杯！": "Reserved. All three meet up — cheers on the first night!", "還沒排，可以補上想去的地方。": "Nothing planned yet — add places you want to go.", "預計 4 小時。": "About 4 hours.", "三人一起的願望清單，時間還沒定，可以在煙火秀前順路吃。": "On all three’s wish list. Time not set — grab it on the way before the fireworks.", "鄭王廟對面、Song Wat Road 一帶，建議提早卡位。": "Across from Wat Arun around Song Wat Road. Get there early to claim a spot.", "一早就退房，帶著行李出發。": "Check out first thing and set off with your bags.", "先到住宿 B 掛行李，再前往廚藝教室。": "Drop bags at Stay B first, then head to the cooking class.", "已預約。08:50 前要到，從萬豪出發，記得預留交通時間。": "Reserved. Be there by 08:50 — you’ll leave from the Marriott, so allow travel time.", "Yupster 主打服飾與帽子，Motive 主打襪子。": "Yupster focuses on apparel and caps; Motive on socks.", "潮流風格，可以逛旗艦店。": "Streetwear style — worth visiting the flagship store.", "Central World 一次逛兩間。BROOO 主打 urban running，ORYM 主打戶外越野、圖騰風格。": "Two stores in one stop at Central World. BROOO focuses on urban running; ORYM on outdoor trail with totem-style designs.", "Krung Thep Aphiwat Central Terminal Station → Chiang Mai。之後 Na 開始自己的行程。": "Krung Thep Aphiwat Central Terminal Station → Chiang Mai. Na’s solo itinerary starts from here.", "尚未安排，想去哪裡可以先寫在待辦清單。": "Not planned yet — jot down where you want to go in the to-do list.", "建議至少提前 3 小時抵達。": "Arrive at least 3 hours before departure.", "19:15 抵達台北桃園。": "Arrives at Taipei Taoyuan at 19:15.", "查煙火秀／無人機秀的觀賞位置": "Find a good spot for the fireworks / drone show", "決定 11/29 自由日要去哪": "Decide where to go on the 11/29 free day", "護照效期（建議 6 個月以上）": "Passport validity (6+ months recommended)", "填寫泰國數位入境卡 TDAC": "Fill in the Thailand Digital Arrival Card (TDAC)", "網路報到、選位（BR201）": "Online check-in & seat selection (BR201)", "準備泰銖現金與信用卡": "Prepare Thai baht cash and a credit card", "買 eSIM 或開通漫遊": "Get an eSIM or enable roaming", "截圖住宿訂單與航班資訊": "Screenshot hotel bookings and flight info", "下載 Grab、Google 地圖離線地圖": "Download Grab and offline Google Maps", "旅遊保險": "Travel insurance", "護照": "Passport", "手機＋充電線": "Phone + charging cable", "行動電源（隨身帶，不能託運）": "Power bank (carry-on only, not checked luggage)", "輕薄透氣衣物": "Light, breathable clothes", "寺廟參觀用衣物（遮肩與膝蓋）": "Temple-visit clothes (cover shoulders and knees)", "好走的鞋＋拖鞋": "Comfortable shoes + sandals", "防曬、墨鏡、帽子": "Sunscreen, sunglasses, hat", "防蚊液": "Mosquito repellent", "小雨傘或輕便雨衣": "Small umbrella or light raincoat", "薄外套（室內冷氣強）": "Light jacket (air-con is strong indoors)", "個人藥品、衛生用品": "Personal medication & toiletries", "環保袋": "Tote bag"};
 function tr(x){return LANG==="en"&&EN[x]?EN[x]:x}
 var WE={"一":"Mon","三":"Wed","四":"Thu","五":"Fri","六":"Sat","日":"Sun"};
 function wk(w){return LANG==="en"?WE[w]:"週"+w}
@@ -286,7 +309,7 @@ function labels(){
 function applyLang(){
  document.documentElement.lang=LANG==="en"?"en":"zh-Hant";
  document.title=LANG==="en"?"Bangkok 5 Days 4 Nights | Trip Itinerary":"曼谷 5 天 4 夜｜旅遊行程";
- applyStatic();labels();cd();showWin();
+ applyStatic();labels();cd();showWin();spView();
  if(me){days();plan();lists();flights()}
  document.querySelectorAll("[data-l]").forEach(function(b){b.classList.toggle("on",b.dataset.l===LANG)});
 }
@@ -369,7 +392,7 @@ function enter(p){
  me=p;s("who",p);$("#gate").hidden=true;
  $("#meBtn").style.background=PC[p];$("#meBtn").style.color=PT[p];
  labels();
- fsel=p;flights();days();plan();lists();window.scrollTo(0,0);
+ fsel=p;flights();days();plan();lists();spView();window.scrollTo(0,0);
 }
 $("#picks").innerHTML=P.map(function(p){return '<button type="button" class="pick" data-p="'+p+'" style="background:'+PC[p]+';color:'+PT[p]+'">'+p+'</button>'}).join("");
 $("#picks").addEventListener("click",function(e){var b=e.target.closest(".pick");if(b)enter(b.dataset.p)});
@@ -423,6 +446,83 @@ function drawMap(){
  html+='<p class="mnote">'+tr("地圖為示意圖，點位是約略位置；時間是依距離估算，實際請點「查路線」看 Google 地圖的即時路況。")+'</p>';
  box.innerHTML=html;
 }
+var SPLIT_URL="",GS=!!(window.google&&google.script&&google.script.run),SD=null,sTab="sum",sForm=null;
+function L(z,e){return LANG==="en"?e:z}
+function esc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function money(n){return "NT$"+Math.round(n).toLocaleString()}
+function spToast(m){var t=$("#spToast");t.textContent=m;t.style.display="block";clearTimeout(spToast.t);spToast.t=setTimeout(function(){t.style.display="none"},3200)}
+function spCall(fn,args,ok){
+ $("#spLoadMsg").textContent=L("處理中…","Working…");$("#spLoad").style.display="flex";
+ var r=google.script.run.withSuccessHandler(function(d){$("#spLoad").style.display="none";ok(d)}).withFailureHandler(function(e){$("#spLoad").style.display="none";spToast(e&&e.message?e.message:String(e))});
+ r[fn].apply(r,args);
+}
+function spNets(){var n={};SD.summary.forEach(function(x){n[x.m]=x.net});SD.settlements.forEach(function(x){if(x.status==="已完成"){n[x.from]=(n[x.from]||0)+x.amt;n[x.to]=(n[x.to]||0)-x.amt}});return n}
+function spPlan(n){
+ var c=[],d=[],o=[];
+ Object.keys(n).forEach(function(k){if(n[k]>.5)c.push([k,n[k]]);else if(n[k]<-.5)d.push([k,-n[k]])});
+ c.sort(function(a,b){return b[1]-a[1]});d.sort(function(a,b){return b[1]-a[1]});
+ while(c.length&&d.length){var a=Math.min(c[0][1],d[0][1]);o.push({from:d[0][0],to:c[0][0],amt:a});c[0][1]-=a;d[0][1]-=a;if(c[0][1]<.5)c.shift();if(d[0][1]<.5)d.shift()}
+ return o;
+}
+function spMode(m){return m==="均分"?L("均分","Equal"):m==="自訂"?L("自訂","Custom"):m}
+function spStat(x){return x==="已完成"?L("已完成","Done"):x==="待轉帳"?L("待轉帳","Pending"):x}
+function spView(){
+ var box=$("#spBody");if(!box)return;
+ if(!GS){box.innerHTML='<div class="card"><p style="margin:0 0 10px">'+L("分帳資料存在你們的 Google 試算表，要從 Apps Script 發布的網址開啟才能使用。","The expense splitter reads and writes your Google Sheet, so it only works when this page is opened from the Apps Script web app link.")+'</p>'+(SPLIT_URL?'<a class="map" href="'+SPLIT_URL+'" target="_blank" rel="noopener">'+L("開啟完整版","Open full version")+'</a>':'')+'</div>';return}
+ if(!SD){box.innerHTML='<div class="card">'+L("載入中…","Loading…")+'</div>';return}
+ var T=[["sum",L("總覽","Overview")],["add",L("記帳","Add")],["list",L("明細","History")]];
+ box.innerHTML='<div class="days" id="spTabs">'+T.map(function(t){return '<button type="button" class="dbtn'+(t[0]===sTab?' on':'')+'" data-t="'+t[0]+'"><b>'+t[1]+'</b></button>'}).join("")+'</div><div id="spPane"></div>';
+ $("#spTabs").onclick=function(e){var b=e.target.closest(".dbtn");if(!b)return;sTab=b.dataset.t;spView();pop($("#spPane"))};
+ var pane=$("#spPane"),h="";
+ if(sTab==="sum"){
+  var n=spNets(),tot=SD.expenses.reduce(function(a,e){return a+e.twd},0),p=spPlan(n);
+  h+='<div class="card"><div class="sp-row"><h3 class="dt" style="margin:0">'+L("全部支出","Total spent")+'</h3><span class="sp-big">'+money(tot)+'</span></div><small>'+(LANG==="en"?SD.expenses.length+" expenses, converted to TWD":"共 "+SD.expenses.length+" 筆，金額統一換算成 TWD")+'</small></div>';
+  h+=SD.summary.map(function(x){var v=n[x.m]||0;return '<div class="card"><div class="sp-row"><h3 class="dt" style="margin:0">'+esc(x.m)+'</h3><span class="'+(v>=0?'pos':'neg')+'">'+(v>.5?L("應收 ","Gets back "):v<-.5?L("應付 ","Owes "):L("已平衡","Settled"))+(Math.abs(v)>.5?money(Math.abs(v)):'')+'</span></div><small>'+L("實際付款 ","Paid ")+money(x.paid)+L("・應負擔 "," · Share ")+money(x.share)+(LANG==="en"?" · "+x.count+" paid":"・"+x.count+" 筆")+'</small></div>'}).join("");
+  h+='<div class="card"><h3 class="dt">'+L("建議轉帳","Suggested transfers")+'</h3>'+(p.length?p.map(function(x,i){return '<div class="sp-row sp-ex"><span><b>'+esc(x.from)+'</b> → <b>'+esc(x.to)+'</b> '+money(x.amt)+'</span><button type="button" class="sp-btn s" data-s="'+i+'">'+L("已轉帳","Paid")+'</button></div>'}).join(""):'<span>'+L("目前不需要轉帳","No transfers needed")+'</span>')+'</div>';
+  h+='<div class="card"><h3 class="dt">'+L("結清紀錄","Settlement log")+'</h3>'+(SD.settlements.length?SD.settlements.map(function(x){return '<div class="sp-ex"><b>'+esc(x.from)+'</b> → <b>'+esc(x.to)+'</b> '+money(x.amt)+'<br><small>'+esc(x.date)+'・'+spStat(x.status)+'</small></div>'}).join(""):'<span>'+L("還沒有紀錄","No records yet")+'</span>')+'</div>';
+  pane.innerHTML=h;
+  pane.querySelectorAll("[data-s]").forEach(function(b){b.onclick=function(){var x=p[+b.dataset.s];if(confirm(L(x.from+" 已轉給 "+x.to+" "+money(x.amt)+"？",x.from+" has paid "+x.to+" "+money(x.amt)+"?")))spCall("addSettlement",[{from:x.from,to:x.to,amount:x.amt,status:"已完成",note:"split page"}],function(d){SD=d;spToast(L("已記錄","Recorded"));spView()})}});
+ }else if(sTab==="add"){spAdd(pane,h)}
+ else if(sTab==="list"){
+  h+=SD.expenses.length?'<div class="card">'+SD.expenses.slice().reverse().map(function(e){return '<div class="sp-ex"><div class="sp-row"><b>'+esc(e.item)+'</b><span>'+e.amt.toLocaleString()+' '+esc(e.cur)+'</span></div><div class="sp-row"><small>'+esc(e.date)+'・'+esc(e.payer)+L(" 付款"," paid")+(e.cur!=="TWD"?'・≈ '+money(e.twd)+(e.rate?' @'+e.rate:''):'')+'</small><button type="button" class="sp-del" data-d="'+esc(e.id)+'">'+L("刪除","Delete")+'</button></div><small>'+spMode(e.mode)+'：'+e.shares.map(function(x){return esc(x.m)+' '+Math.round(x.v)}).join(L("、",", "))+(e.note?'｜'+esc(e.note):'')+'</small></div>'}).join("")+'</div>':'<div class="card">'+L("還沒有支出紀錄","No expenses yet")+'</div>';
+  pane.innerHTML=h;
+  pane.querySelectorAll("[data-d]").forEach(function(b){b.onclick=function(){if(confirm(L("確定刪除 ","Delete ")+b.dataset.d+"?"))spCall("deleteExpense",[b.dataset.d],function(d){SD=d;spToast(L("已刪除","Deleted"));spView()})}});
+ }
+}
+function spAdd(pane,h){
+ var f=sForm=sForm||{mode:"均分",part:SD.members.slice(),cur:SD.currencies.indexOf("THB")>-1?"THB":"TWD"},who=me&&SD.members.indexOf(me)>-1?me:SD.members[0];
+ h+='<div class="card"><h3 class="dt">'+L("新增支出","New expense")+'</h3>'
+  +'<label class="spf">'+L("日期","Date")+'</label><input type="date" id="sp_date" value="'+SD.today+'">'
+  +'<label class="spf">'+L("項目","Item")+'</label><input type="text" id="sp_item" placeholder="'+L("例如：晚餐、Grab","e.g. dinner, Grab")+'">'
+  +'<label class="spf">'+L("付款人","Paid by")+'</label><select id="sp_payer">'+SD.members.map(function(m){return '<option'+(m===who?' selected':'')+'>'+esc(m)+'</option>'}).join("")+'</select>'
+  +'<div class="sp-row" style="align-items:flex-end"><div style="flex:1"><label class="spf">'+L("金額","Amount")+'</label><input type="number" inputmode="decimal" step="any" id="sp_amt"></div><div style="width:110px"><label class="spf">'+L("幣別","Currency")+'</label><select id="sp_cur">'+SD.currencies.map(function(c){return '<option'+(c===f.cur?' selected':'')+'>'+esc(c)+'</option>'}).join("")+'</select></div></div>'
+  +'<div id="sp_rate_box"></div><div id="sp_twd" style="margin-top:4px;font-size:13px"></div>'
+  +'<label class="spf">'+L("分攤方式","Split type")+'</label><div class="sp-chips">'+["均分","自訂"].map(function(m){return '<span class="sp-chip'+(f.mode===m?' on':'')+'" data-m="'+m+'">'+spMode(m)+'</span>'}).join("")+'</div>'
+  +'<label class="spf">'+L("分攤對象","Split between")+'</label><div class="sp-chips">'+SD.members.map(function(m){return '<span class="sp-chip'+(f.part.indexOf(m)>-1?' on':'')+'" data-p="'+esc(m)+'">'+esc(m)+'</span>'}).join("")+'</div>'
+  +'<div id="sp_cus"></div>'
+  +'<label class="spf">'+L("備註（選填）","Note (optional)")+'</label><input type="text" id="sp_note">'
+  +'<div style="text-align:center;margin-top:14px"><button type="button" class="sp-btn" id="sp_go">'+L("新增","Add")+'</button></div></div>';
+ pane.innerHTML=h;
+ function lastRate(c){var l=SD.expenses.filter(function(e){return e.cur===c&&e.rate>0}).pop();return l?l.rate:""}
+ function rbox(){var c=f.cur,b=$("#sp_rate_box");if(c==="TWD"){b.innerHTML="";return}b.innerHTML='<label class="spf">'+L("匯率：1 "+c+" = 幾 TWD","Rate: 1 "+c+" = how many TWD")+'</label><input type="number" inputmode="decimal" step="any" id="sp_rate" value="'+(f.rate||lastRate(c)||"")+'" placeholder="'+L("請自行填入當下匯率","Enter today’s rate")+'">';$("#sp_rate").oninput=function(){f.rate=parseFloat(this.value)||0;twd();rem()}}
+ function twd(){var a=parseFloat($("#sp_amt").value)||0,c=$("#sp_cur").value,ri=$("#sp_rate"),r=c==="TWD"?1:(ri?parseFloat(ri.value)||0:0);$("#sp_twd").textContent=!a?"":r?"≈ "+money(a*r):L("請填入匯率","Enter the rate");return a*r}
+ function rem(){var el=$("#sp_rem");if(!el)return;var s2=f.part.reduce(function(a,m){return a+((f.cus&&f.cus[m])||0)},0),t=twd();el.textContent=L("合計 ","Total ")+Math.round(s2)+" / "+Math.round(t)+" TWD"+(Math.abs(s2-t)>1?L("（還差 "," (short by ")+Math.round(t-s2)+(LANG==="en"?")":"）"):"")}
+ function cus(){
+  var b=$("#sp_cus");if(f.mode!=="自訂"){b.innerHTML="";return}
+  b.innerHTML='<label class="spf">'+L("各人負擔（TWD）","Each person’s share (TWD)")+'</label>'+f.part.map(function(m){return '<div class="sp-row" style="margin-bottom:6px"><span>'+esc(m)+'</span><input type="number" step="any" style="width:130px" data-c="'+esc(m)+'" value="'+(f.cus&&f.cus[m]||"")+'"></div>'}).join("")+'<small id="sp_rem"></small>';
+  b.querySelectorAll("[data-c]").forEach(function(i){i.oninput=function(){f.cus=f.cus||{};f.cus[i.dataset.c]=parseFloat(i.value)||0;rem()}});rem();
+ }
+ $("#sp_amt").oninput=function(){twd();rem()};$("#sp_cur").onchange=function(){f.cur=this.value;f.rate=0;rbox();twd();rem()};
+ pane.querySelectorAll("[data-m]").forEach(function(c){c.onclick=function(){f.mode=c.dataset.m;spView()}});
+ pane.querySelectorAll("[data-p]").forEach(function(c){c.onclick=function(){var m=c.dataset.p,i=f.part.indexOf(m);if(i>-1)f.part.splice(i,1);else f.part.push(m);c.classList.toggle("on");cus()}});
+ cus();rbox();twd();
+ $("#sp_go").onclick=function(){
+  var p={date:$("#sp_date").value,item:$("#sp_item").value.trim(),payer:$("#sp_payer").value,amount:parseFloat($("#sp_amt").value),currency:$("#sp_cur").value,rate:$("#sp_cur").value==="TWD"?1:parseFloat(($("#sp_rate")||{}).value),mode:f.mode,participants:f.part.slice(),custom:f.cus||{},note:$("#sp_note").value};
+  if(p.currency!=="TWD"&&!(p.rate>0)){spToast(L("請填入匯率","Enter the rate"));return}
+  spCall("addExpense",[p],function(d){SD=d;sForm=null;sTab="list";spToast(L("已新增","Added"));spView()});
+ };
+}
+if(GS)google.script.run.withSuccessHandler(function(d){SD=d;spView()}).withFailureHandler(function(e){spToast(e&&e.message?e.message:String(e))}).getData();
 var wrot=0,spinning=false,lastWin=-1;
 function showWin(){
  var el=$("#win");if(lastWin<0){el.innerHTML="";return}
